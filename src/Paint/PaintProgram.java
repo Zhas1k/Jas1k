@@ -3,11 +3,14 @@ package Paint;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 
 public class PaintProgram extends JFrame {
     private int x, y;
     private Color color = Color.BLACK;
     private JButton colorButton, clearButton;
+    private JSlider widthPen;
+    private int widthLine = 1;
     private JPanel doska;
     public PaintProgram() {
         setTitle("Paint Program");
@@ -15,7 +18,6 @@ public class PaintProgram extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         colorButton = new JButton("Color");
-        colorButton.setBackground(Color.YELLOW);
         colorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -32,7 +34,15 @@ public class PaintProgram extends JFrame {
                 g.fillRect(0, 0, doska.getWidth(), doska.getHeight());
             }
         });
-
+        widthPen = new JSlider(JSlider.HORIZONTAL, 1, 10, 1);
+        widthPen.setMajorTickSpacing(1);
+        widthPen.setPaintTicks(true);
+        widthPen.setPaintLabels(true);
+        widthPen.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                widthLine = widthPen.getValue();
+            }
+        });
         doska = new JPanel();
         doska.setBackground(Color.WHITE);
         doska.addMouseListener(new MouseAdapter() {
@@ -44,17 +54,23 @@ public class PaintProgram extends JFrame {
         doska.addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent e) {
                 Graphics g = doska.getGraphics();
-                g.setColor(color);
-                g.drawLine(x, y, e.getX(), e.getY());
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setStroke(new BasicStroke(widthLine));
+                g2.setColor(color);
+                g2.drawLine(x, y, e.getX(), e.getY());
                 x = e.getX();
                 y = e.getY();
             }
         });
 
+
+
         Container knopkaOryndary = getContentPane();
-        JPanel knopka = new JPanel(new GridLayout(2, 4));
+        JPanel knopka = new JPanel(new GridLayout(3, 2));
         knopka.add(colorButton);
         knopka.add(clearButton);
+        knopka.add(new JLabel("Line Width:"));
+        knopka.add(widthPen);
         knopkaOryndary.add(knopka, BorderLayout.NORTH);
         knopkaOryndary.add(doska, BorderLayout.CENTER);
 
