@@ -7,39 +7,20 @@ import javax.swing.*;
 public class PaintProgram extends JFrame {
     private int x, y;
     private Color color = Color.BLACK;
-    private JButton karandashButton, redButton, blueButton, yellowButton, clearButton;
+    private JButton colorButton, clearButton;
     private JPanel doska;
     public PaintProgram() {
         setTitle("Paint Program");
         setSize(1500, 1000);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        karandashButton = new JButton("Karandash");
-        karandashButton.setBackground(Color.BLACK);
-        karandashButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                color = Color.BLACK;
-            }
-        });
-        redButton = new JButton("Red");
-        redButton.setBackground(Color.RED);
-        redButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                color = Color.RED;
-            }
-        });
-        blueButton = new JButton("Blue");
-        blueButton.setBackground(Color.BLUE);
-        blueButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                color = Color.BLUE;
-            }
-        });
-        yellowButton = new JButton("Yellow");
-        yellowButton.setBackground(Color.YELLOW);
-        yellowButton.addActionListener(new ActionListener() {
+        colorButton = new JButton("Color");
+        colorButton.setBackground(Color.YELLOW);
+        colorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                color = Color.YELLOW;
+
+                color = JColorChooser.showDialog(PaintProgram.this, "Vyberitte Svet", color);
+
             }
         });
 
@@ -72,10 +53,7 @@ public class PaintProgram extends JFrame {
 
         Container knopkaOryndary = getContentPane();
         JPanel knopka = new JPanel(new GridLayout(2, 4));
-        knopka.add(karandashButton);
-        knopka.add(redButton);
-        knopka.add(yellowButton);
-        knopka.add(blueButton);
+        knopka.add(colorButton);
         knopka.add(clearButton);
         knopkaOryndary.add(knopka, BorderLayout.NORTH);
         knopkaOryndary.add(doska, BorderLayout.CENTER);
