@@ -8,7 +8,7 @@ import javax.swing.event.*;
 public class PaintProgram extends JFrame {
     private int x, y;
     private Color color = Color.BLACK;
-    private JButton colorButton, clearButton;
+    private JButton colorButton, clearButton, fillButton;
     private JSlider widthPen;
     private int widthLine = 1;
     private JPanel doska;
@@ -31,6 +31,16 @@ public class PaintProgram extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Graphics g = doska.getGraphics();
                 g.setColor(Color.WHITE);
+                g.fillRect(0, 0, doska.getWidth(), doska.getHeight());
+            }
+        });
+        fillButton = new JButton("Zalivka");
+        fillButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                color = JColorChooser.showDialog(PaintProgram.this, "Vyberitte Svet", color);
+                Graphics g = doska.getGraphics();
+                g.setColor(color);
                 g.fillRect(0, 0, doska.getWidth(), doska.getHeight());
             }
         });
@@ -69,6 +79,7 @@ public class PaintProgram extends JFrame {
         JPanel knopka = new JPanel(new GridLayout(3, 2));
         knopka.add(colorButton);
         knopka.add(clearButton);
+        knopka.add(fillButton);
         knopka.add(new JLabel("Line Width:"));
         knopka.add(widthPen);
         knopkaOryndary.add(knopka, BorderLayout.NORTH);
