@@ -62,6 +62,9 @@ public class PaintProgram extends JFrame {
         doska = new JPanel();
         doska.setBackground(Color.WHITE);
         doska.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+            }
             public void mousePressed(MouseEvent e) {
                 x = e.getX();
                 y = e.getY();
