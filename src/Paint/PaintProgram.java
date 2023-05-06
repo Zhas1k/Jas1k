@@ -8,7 +8,7 @@ import javax.swing.event.*;
 public class PaintProgram extends JFrame {
     private int x, y;
     private Color color = Color.BLACK;
-    private JButton colorButton, clearButton, fillButton, circleButton, squareButton;
+    private JButton colorButton, clearButton, easearButton, fillButton, circleButton, squareButton;
     private JSlider widthPen;
     private int widthLine = 1;
     private JPanel doska;
@@ -23,6 +23,12 @@ public class PaintProgram extends JFrame {
 
                 color = JColorChooser.showDialog(PaintProgram.this, "Vyberitte Svet", color);
 
+            }
+        });
+        easearButton = new JButton("lastik");
+        easearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                color = Color.WHITE;
             }
         });
 
@@ -94,6 +100,7 @@ public class PaintProgram extends JFrame {
         JPanel knopka = new JPanel(new GridLayout(3, 3));
         knopka.add(colorButton);
         knopka.add(clearButton);
+        knopka.add(easearButton);
         knopka.add(fillButton);
         knopka.add(circleButton);
         knopka.add(squareButton);
